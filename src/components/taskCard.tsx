@@ -4,43 +4,17 @@ import { cn } from "../lib/utils";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 import { CheckCircle2, Circle, Trash2, Badge, CalendarIcon } from "lucide-react";
-import type { Button } from "./ui/button";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import dayjs from "dayjs"
 import StatCards from "./statCards";
 import AddTask from "./add-task-dialog";
-import { getTasks } from "../features/todo/services/taskService";
+import { deleteTask, getTasks, updateTask } from "../features/todo/services/taskService";
 import TaskCardChild from "./todoCard/taskCard";
 dayjs.extend(customParseFormat)
 
 
 export default function TaskCard() {
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: 1,
-      title: "Design new homepage",
-      status: "todo",
-      created_at: new Date(),
-      deadline: dayjs("2024-07-15", "YYYY-MM-DD").toDate(),
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "Fix login bug",
-      status: "inprogress",
-      created_at: new Date(),
-      deadline: dayjs("2024-07-10", "YYYY-MM-DD").toDate(),
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "Update user profile page",
-      status: "done",
-      created_at: new Date(),
-      deadline: dayjs("2024-07-05", "YYYY-MM-DD").toDate(),
-      completed: true,
-    },
-  ]);
+  const [tasks, setTasks] = useState<Task[]>([]);
   useEffect(() => {
     const fetchTasks = async () => {
       const tasks = await getTasks();
@@ -53,6 +27,24 @@ export default function TaskCard() {
   }, [])
   const onAddTask = (newTask: Task) => {
     setTasks([...tasks, newTask]);
+  };
+  const validateTask = (task: Task) => {
+    if (!task.title || !task.deadline || !task.status) {
+      return false;
+    }
+    return true;
+  };
+  const onMarkDone = (task: Task) => {
+    setTasks(tasks.map((t) => (t.id === task.id ? { ...t, completed: true } : t)));
+    updateTask(task);
+  };
+  const onEdit = (task: Task) => {
+    setTasks(tasks.map((t) => (t.id === task.id ? { ...t, ...task } : t)));
+    updateTask(task);
+  };
+  const onDelete = (id: number) => {
+    setTasks(tasks.filter((t) => t.id !== id));
+    deleteTask(id);
   };
   const [filterPriority, setFilterPriority] = useState("all");
   const stats = {
@@ -100,7 +92,7 @@ export default function TaskCard() {
                 </div>
               ) : (
                 filteredtasks.map((task) => (
-                  <TaskCardChild key={task.id} task={task}></TaskCardChild>
+                  <TaskCardChild key={task.id} task={task} onMarkDone={onMarkDone} onEdit={onEdit} onDelete={onDelete}></TaskCardChild>
                 ))
               )}
             </div>

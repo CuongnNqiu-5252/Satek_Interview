@@ -18,13 +18,14 @@ export const addTask = async (task: Partial<Task>) => {
   return data[0];
 };
 
-export const updateTask = async (task: Task) => {
-  const { error } = await supabase
+export const updateTask = async (task: Task): Promise<Task> => {
+  const { data, error } = await supabase
     .from("todos")
     .update(task)
-    .eq("id", task.id);
-
+    .eq("id", task.id)
+    .select();
   if (error) throw error;
+  return data[0];
 };
 
 export const deleteTask = async (id: number) => {

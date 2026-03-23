@@ -6,15 +6,12 @@ const TaskContext = createContext<{
     tasks: Task[];
     loading: boolean;
     error: Error | null;
-    addTask: (task: Task) => Promise<void>;
-    updateTask: (task: Task) => Promise<void>;
-    deleteTask: (id: number) => Promise<void>;
 } | null>(null);
 
 export const TaskProvider = ({ children }: { children: React.ReactNode }) => {
-    const { tasks, loading, error, addTask, updateTask, deleteTask } = useTask();
+    const { tasks, loading, error } = useTask();
     return (
-        <TaskContext.Provider value={{ tasks, loading, error, addTask, updateTask, deleteTask }}>
+        <TaskContext.Provider value={{ tasks, loading, error }}>
             {children}
         </TaskContext.Provider>
     );

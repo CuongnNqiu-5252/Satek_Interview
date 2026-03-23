@@ -1,6 +1,18 @@
 import { CheckCircle2, Pencil, Trash2 } from "lucide-react"
 import { cn } from "../../lib/utils"
 import type { Task } from "../../types/task"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog"
+import { Input } from "../ui/input"
+import { Button } from "../ui/button"
 
 interface TaskCardProps {
   task: Task
@@ -91,12 +103,32 @@ export default function TaskCardChild({ task, onMarkDone, onEdit, onDelete }: Ta
         </button>
 
         <button
-          onClick={() => onDelete(task.id)}
-          title="Delete Task"
+
           className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-medium bg-red-50 text-red-600 hover:bg-red-100 transition-all duration-200 active:scale-95 ml-auto"
         >
-          <Trash2 className="w-3.5 h-3.5" />
-          Delete
+
+          <Dialog>
+            <form>
+              <DialogTrigger asChild>
+                <Button title="Delete Task"
+                  variant="outline"><Trash2 className="w-3.5 h-3.5" /></Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-sm">
+                <DialogHeader>
+                  <DialogTitle>Delete task</DialogTitle>
+                  <DialogDescription>
+                    Are you sure you want to delete this task?
+                  </DialogDescription>
+                </DialogHeader>
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+                  <Button onClick={() => onDelete(task.id)}>Confirm</Button>
+                </DialogFooter>
+              </DialogContent>
+            </form>
+          </Dialog>
         </button>
       </div>
     </div>
