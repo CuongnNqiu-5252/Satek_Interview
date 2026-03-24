@@ -5,6 +5,7 @@ export interface Task {
   created_at: Date;
   status: TaskStatus;
   deadline: Date;
+  isNotified: boolean;
 }
 
 export type TaskStatus = "todo" | "inprogress" | "done";

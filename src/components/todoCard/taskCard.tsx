@@ -11,8 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "../ui/dialog"
-import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { useMemo } from "react"
 
 interface TaskCardProps {
   task: Task
@@ -40,6 +40,15 @@ const STATUS_BORDER: Record<Task["status"], string> = {
 }
 
 export default function TaskCardChild({ task, onMarkDone, onEdit, onDelete }: TaskCardProps) {
+  const isOverdue: boolean = useMemo(() => {
+    return task.deadline && new Date(task.deadline) < new Date() && task.status !== "done"
+  }, [task])
+  const isNearDeadline: boolean = useMemo(() => {
+    const now = new Date()
+    const diff = new Date(task.deadline).getTime() - now.getTime()
+    const hours = diff / (1000 * 60 * 60)
+    return hours > 0 && hours <= 24 && task.status !== "done"
+  }, [task])
   return (
     <div
       className={cn(
@@ -74,6 +83,16 @@ export default function TaskCardChild({ task, onMarkDone, onEdit, onDelete }: Ta
         <p className="text-xs text-slate-400">
           Due: {new Date(task.deadline).toLocaleDateString()}
         </p>
+      )}
+      {isNearDeadline && (
+        <span className="text-xs border w-25 justify-center bg-red-50 flex rounded-full border-red-500 text-red-500">
+          Near Deadline
+        </span>
+      )}
+      {isOverdue && (
+        <span className="text-xs border w-25 justify-center bg-red-50 flex rounded-full border-red-500 text-red-500">
+          Overdue
+        </span>
       )}
 
       {/* Action buttons */}
@@ -124,7 +143,7 @@ export default function TaskCardChild({ task, onMarkDone, onEdit, onDelete }: Ta
                   <DialogClose asChild>
                     <Button variant="outline">Cancel</Button>
                   </DialogClose>
-                  <Button onClick={() => onDelete(task.id)}>Confirm</Button>
+                  <Button className="bg-black text-white" onClick={() => onDelete(task.id)}>Confirm</Button>
                 </DialogFooter>
               </DialogContent>
             </form>

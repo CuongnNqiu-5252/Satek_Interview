@@ -55,6 +55,7 @@ export default function TaskDialog({ open, mode, initialData, onClose, onSave }:
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
+
       {/* Modal */}
       <div className="w-full max-w-md rounded-2xl bg-white shadow-2xl p-6 flex flex-col gap-5 animate-in fade-in zoom-in-95 duration-200">
         {/* Header */}
