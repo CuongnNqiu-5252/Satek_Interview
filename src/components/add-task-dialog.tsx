@@ -6,22 +6,19 @@ import { Card, CardContent, CardHeader } from "./ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
 import { Dayjs } from 'dayjs';
 import { addTask } from "../features/todo/services/taskService";
-import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Bounce, ToastContainer } from "react-toastify";
 import type { Task } from "../types/task";
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
 type Props = {
     onAdd: (todo: any) => void;
 }
-const CATEGORIES = ["Work", "Personal", "Shopping", "Others"]
 
 export default function AddTask({ onAdd }: Props) {
     const [time, setTime] = useState<Dayjs>();
     const [dueDate, setDueDate] = useState<Date | undefined>(new Date())
     const [inputValue, setInputValue] = useState("")
-    const [description, setDescription] = useState("")
-    const [status, setStatus] = useState("todo")
     const [selectedPriority, setSelectedPriority] = useState("todo")
-    const [deadline, setDeadline] = useState<Date | undefined>(new Date())
+    const [, setDeadline] = useState<Date | undefined>(new Date())
     const addTaskCard = async () => {
         if (!dueDate) return;
 

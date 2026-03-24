@@ -3,7 +3,7 @@ import type { Task } from "../types/task"
 import { cn } from "../lib/utils";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { CheckCircle2, Circle, Trash2, Badge, CalendarIcon } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import customParseFormat from "dayjs/plugin/customParseFormat"
 import dayjs from "dayjs"
 import StatCards from "./statCards";
@@ -27,12 +27,6 @@ export default function TaskCard() {
   }, [])
   const onAddTask = (newTask: Task) => {
     setTasks([...tasks, newTask]);
-  };
-  const validateTask = (task: Task) => {
-    if (!task.title || !task.deadline || !task.status) {
-      return false;
-    }
-    return true;
   };
   const onMarkDone = (task: Task) => {
     setTasks(tasks.map((t) => (t.id === task.id ? { ...t, completed: true } : t)));

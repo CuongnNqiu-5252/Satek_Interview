@@ -1,7 +1,6 @@
 import { Button } from "../components/ui/button"
 import { Input } from "../components/ui/input"
-import { Bell, Search, Plus } from "lucide-react"
-import AddTask from "./add-task-dialog"
+import { Bell, Search, } from "lucide-react"
 interface HeaderProps {
   searchQuery: string
   onSearchChange: (query: string) => void
