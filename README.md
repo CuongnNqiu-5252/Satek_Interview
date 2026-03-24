@@ -24,7 +24,7 @@
    npm run dev
    ```
 5. **Truy cập ứng dụng:**
-   Mở trình duyệt và truy cập vào đường dẫn hiển thị trên terminal, thường là: `http://localhost:5173`
+   Mở trình duyệt và truy cập vào đường dẫn hiển thị trên terminal: `http://localhost:5173`
 
 ---
 
@@ -47,7 +47,7 @@ Trong quá trình phát triển dự án này, một số quyết định kỹ t
    - Task có field isNotified để đánh dấu đã thông báo hay chưa
    - Sử dụng setInterval để kiểm tra task có deadline trong 24h tới và chưa được thông báo
    - Sử dụng Popover để hiển thị danh sách thông báo
-
+6. **Sử dụng thư viện `react-hot-toast` và `react-toastify` để cải thiện UI/UX:**
 ---
 
 ## 💡 Những điểm sẽ cải thiện nếu có thêm thời gian
@@ -61,3 +61,5 @@ Trong quá trình phát triển dự án này, một số quyết định kỹ t
 4. **Áp dụng hiển thị Gantt Chart:**
 
 5. **Tích hợp AI Assistant:**
+
+6. **Triển khai ứng dụng bằng docker:**
