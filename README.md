@@ -1,7 +1,7 @@
 # Todo List Application
 
 Đây là ứng dụng quản lý công việc (Todo List) được xây dựng bằng React, Vite, TypeScript và TailwindCSS.
-
+## Deployment : [Demo Website](https://satek-interview.vercel.app)
 ## 🚀 Hướng dẫn cài đặt và chạy local
 
 ### Yêu cầu hệ thống
@@ -13,7 +13,7 @@
 1. **Clone repository (nếu có) hoặc tải mã nguồn về máy**
 2. **Mở terminal và di chuyển vào thư mục dự án:**
    ```bash
-   cd todoList-app
+   cd Satek_Interview
    ```
 3. **Cài đặt các dependencies:**
    ```bash
